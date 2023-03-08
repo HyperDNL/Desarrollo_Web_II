@@ -7,6 +7,7 @@ export interface IUser {
     name: string;
   };
 }
+
 export type UserContextType = {
   users?: IUser[];
   getUsers: Function;
