@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { FaUserCircle } from "react-icons/fa";
 import { IUser } from "../interfaces/UsersType";
+import { device } from "../styles/responsive";
 
 export const UserCard = ({ id, name, email, phone, company }: IUser) => {
   return (
@@ -40,7 +41,7 @@ export const UserCard = ({ id, name, email, phone, company }: IUser) => {
 
 const CardContainer = styled.div`
   background-color: #424858;
-  padding: 2rem;
+  padding: 1rem;
   border-radius: 1rem;
 
   .header-card {
@@ -57,7 +58,7 @@ const CardContainer = styled.div`
   .card-body {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    column-gap: 2rem;
+    column-gap: 1rem;
     justify-items: stretch;
     align-items: stretch;
   }
@@ -69,7 +70,7 @@ const CardContainer = styled.div`
   .column {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 1rem;
   }
 
   .row {
@@ -77,5 +78,125 @@ const CardContainer = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
+  }
+
+  @media ${device.mobileSS} {
+    padding: 0.5rem;
+
+    .card-body {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .column {
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+  }
+
+  @media ${device.mobileS} {
+    padding: 2rem;
+
+    .card-body {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .column {
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+  }
+
+  @media ${device.mobileM} {
+    padding: 2rem;
+
+    .card-body {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .column {
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+  }
+
+  @media ${device.mobileL} {
+    padding: 2rem;
+
+    .card-body {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .column {
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+  }
+
+  @media ${device.tablet} {
+    padding: 2rem;
+
+    .card-body {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .column {
+      gap: 2rem;
+      margin-top: 1rem;
+    }
+  }
+
+  @media ${device.laptop} {
+    padding: 2rem;
+
+    .card-body {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .column {
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+  }
+
+  @media ${device.laptopL} {
+    padding: 2rem;
+
+    .card-body {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      column-gap: 1rem;
+      justify-items: stretch;
+      align-items: stretch;
+    }
+
+    .column {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+  }
+
+  @media ${device.desktop} {
+    padding: 2rem;
+
+    .card-body {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      column-gap: 1rem;
+      justify-items: stretch;
+      align-items: stretch;
+    }
+
+    .column {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
   }
 `;
