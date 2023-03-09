@@ -33,6 +33,13 @@ const NotFoundContainer = styled.div`
   .link-home {
     text-decoration: none;
     color: #f0f0f0;
+    background-color: #424858;
     font-weight: bold;
+    padding: 1rem;
+    border-radius: 1rem;
+
+    &:hover {
+      background-color: #252831;
+    }
   }
 `;
