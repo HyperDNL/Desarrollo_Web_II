@@ -35,7 +35,7 @@ const NavbarContainer = styled.div`
   align-items: center;
   justify-content: space-between;
   height: 4rem;
-  padding: 0 2rem 0 2rem;
+  padding: 0 1rem 0 1rem;
 
   .nav-button {
     font-size: 2rem;
@@ -58,10 +58,10 @@ const NavbarContainer = styled.div`
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    gap: 2rem;
+    gap: 1rem;
   }
 
-  @media (max-width: 600px) {
+  @media (max-width: 768px) {
     .nav-button {
       visibility: visible;
     }
@@ -78,7 +78,7 @@ const NavbarContainer = styled.div`
       justify-content: center;
       background-color: #252831;
       transition: all 1s;
-      transform: translateY(-100vh);
+      transform: translateY(-100%);
     }
 
     .route {
@@ -91,8 +91,8 @@ const NavbarContainer = styled.div`
 
     .fa-times {
       position: absolute;
-      top: 2rem;
-      right: 2rem;
+      top: 1rem;
+      right: 1rem;
     }
   }
 `;
