@@ -11,4 +11,5 @@ export interface IUser {
 export type UserContextType = {
   users?: IUser[];
   getUsers: Function;
+  isLoadingData: boolean;
 };
