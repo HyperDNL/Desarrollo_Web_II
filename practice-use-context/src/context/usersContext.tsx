@@ -12,10 +12,12 @@ export const useUsers = () => {
 
 export const UsersProvider = ({ children }: Props) => {
   const [users, setUsers] = useState<IUser[]>();
+  const [isLoadingData, setIsLoadingData] = useState<boolean>(true);
 
   const getUsers = async () => {
-    const res = await getUsersRequests();
-    setUsers(res.data);
+    const { data } = await getUsersRequests();
+    setUsers(data);
+    setIsLoadingData(false);
   };
 
   useEffect(() => {
@@ -23,7 +25,7 @@ export const UsersProvider = ({ children }: Props) => {
   }, []);
 
   return (
-    <usersContext.Provider value={{ users, getUsers }}>
+    <usersContext.Provider value={{ users, isLoadingData, getUsers }}>
       {children}
     </usersContext.Provider>
   );
