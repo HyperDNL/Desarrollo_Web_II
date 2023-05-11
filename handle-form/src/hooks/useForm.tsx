@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { InputHook } from "../interfaces/InputHook";
 
 const useForm = <T extends string | number>(
@@ -10,10 +10,11 @@ const useForm = <T extends string | number>(
 
   const handleChangeString = (e: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = e.target.value as T;
+
     setValue(inputValue);
 
     if (!inputValue) {
-      setError("The field cannot be empty.");
+      setError("The field cannot be empty");
       setHasError(true);
     } else {
       setError("");
@@ -23,8 +24,10 @@ const useForm = <T extends string | number>(
 
   const handleChangeNumber = (e: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = parseFloat(e.target.value);
-    if (isNaN(inputValue) || inputValue < 0) {
-      setError("The value must be a number greater or equal to zero.");
+
+    if (isNaN(inputValue) || inputValue <= 0) {
+      setValue(0 as T);
+      setError("The value must be a number greater than zero");
       setHasError(true);
     } else {
       setValue(inputValue as T);
@@ -33,18 +36,25 @@ const useForm = <T extends string | number>(
     }
   };
 
-  useEffect(() => {
-    if (!initialValue) {
-      setError("The field cannot be empty.");
+  const setStateAction = (newValue: T) => {
+    const inputValue = newValue as T;
+
+    if (inputValue !== undefined && inputValue !== null) {
+      setValue(newValue);
+      setError("");
+      setHasError(false);
+    } else {
+      setError("The field cannot be empty");
       setHasError(true);
     }
-  }, [initialValue]);
+  };
 
   return [
     value,
     typeof value === "number" ? handleChangeNumber : handleChangeString,
     hasError,
     error,
+    setStateAction,
   ];
 };
 
