@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   makeStyles,
   shorthands,
@@ -12,8 +12,9 @@ import styled from "styled-components";
 import { useParams, useNavigate } from "react-router-dom";
 import { DividerSection } from "../components/DividerSection";
 import useForm from "../hooks/useForm";
-import { Toast } from "../components/Toast";
-import { users } from "../resources/UsersData";
+import { ToastError } from "../components/ToastError";
+import { useUsers } from "../context/usersContext";
+import { User } from "../interfaces/User";
 
 const useStyles = makeStyles({
   base: {
@@ -31,27 +32,64 @@ const useStyles = makeStyles({
 
 export const UserFormPage = () => {
   const { id } = useParams<{ id: string }>();
+
   const navigate = useNavigate();
 
-  const user = users.find(({ userId }) => userId === Number(id));
+  const { getUser, updateUser } = useUsers();
 
-  const [name, handleNameChange, nameError, nameErrorMessage] = useForm<string>(
-    user?.name
-  );
-  const [position, handlePositionChange, positionError, positionErrorMessage] =
-    useForm<string>(user?.position);
-  const [salary, handleSalaryChange, salaryError, salaryErrorMessage] =
-    useForm<number>(user?.salary);
+  const [name, handleNameChange, nameError, nameErrorMessage, setName] =
+    useForm<string>("");
+  const [
+    position,
+    handlePositionChange,
+    positionError,
+    positionErrorMessage,
+    setPosition,
+  ] = useForm<string>("");
+  const [
+    salary,
+    handleSalaryChange,
+    salaryError,
+    salaryErrorMessage,
+    setSalary,
+  ] = useForm<number>(0);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      if (id) {
+        const fetchedUser = await getUser(id);
+
+        if (fetchedUser) {
+          const {
+            name: fetchedName,
+            position: fetchedPosition,
+            salary: fetchedSalary,
+          } = fetchedUser;
+
+          setName(fetchedName);
+          setPosition(fetchedPosition);
+          setSalary(fetchedSalary);
+        }
+      }
+    };
+
+    fetchUser();
+  }, [id]);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (nameError || positionError || salaryError) {
-      Toast("Error in the form.");
+    if (!name || !position || !salary) {
+      ToastError("Error in the form");
     } else {
-      console.log(
-        `Nombre: ${name}, Position: ${position}, Type of Salary: ${typeof salary}, Salary: ${salary}`
-      );
-      navigate("/users");
+      if (id) {
+        const updatedData: User = {
+          name,
+          position,
+          salary,
+        };
+        updateUser(id, updatedData);
+        navigate("/users");
+      }
     }
   };
 
