@@ -15,7 +15,7 @@ import { NavRoute } from "../interfaces/NavRoute";
 
 const pages: NavRoute[] = [
   {
-    name: "Home",
+    name: "Register",
     route: "/",
   },
   {
